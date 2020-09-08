@@ -9,7 +9,7 @@ local make_entry = require('telescope.make_entry')
 local session = irequire('lib.session')
 
 nmap { 'gr', builtin.lsp_references }
-nmap { '<c-l>s', builtin.lsp_document_symbols }
+nmap { '<c-l>ds', builtin.lsp_document_symbols }
 nmap { '<c-l>ws', builtin.lsp_workspace_symbols }
 nmap { '<c-l>b', builtin.buffers }
 nmap { '<c-l>h', builtin.command_history }

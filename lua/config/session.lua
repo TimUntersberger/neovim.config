@@ -34,3 +34,5 @@ command {
     "SessionList",
     [[lua print(vim.inspect(S.list()))]]
 }
+
+vim.cmd [[set sessionoptions+=localoptions]]

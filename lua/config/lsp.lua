@@ -1,5 +1,5 @@
 local lsp = require('nvim_lsp')
-local servers = {"tsserver", "vimls", "jsonls", "rls", "sumneko_lua"}
+local servers = {"tsserver", "vimls", "jsonls", "rust_analyzer"}
 
 local on_attach_vim = function()
   require'completion'.on_attach()

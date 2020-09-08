@@ -13,6 +13,8 @@ let [[mapleader=" "]]
 set [[nu]]
 set [[rnu]]
 set [[noswapfile]]
+set [[nobackup]]
+set [[nowritebackup]]
 set [[expandtab]]
 set [[tabstop=2]]
 set [[splitright]]
@@ -29,23 +31,33 @@ set [[smartcase]]
 set [[hidden]]
 set [[mouse=a]]
 
-vim.cmd [[filetype plugin on]]
-vim.cmd [[syntax on]]
-
 colorscheme [[gruvbox]]
 
 nmap = irequire('lib.mapping').nmap
 imap = irequire('lib.mapping').imap
+vmap = irequire('lib.mapping').vmap
+tmap = irequire('lib.mapping').tmap
 autocmd = irequire('lib.autocommand').autocmd
 
 nmap { '<F5>', [[<cmd>source $MYVIMRC<CR>]] }
 
 if vim.fn.has('win32') then
-    vim.cmd [[vnoremap <c-s-c> "*y]]
+    vmap { '<c-s-c>', '"*y' }
+    imap { '<c-s-v>', '"*p' }
    -- irequire('config.win32')
 end
 
 nmap { '<leader>g', [[<cmd>lua require('neogit.status').create()<cr>]] }
+nmap { '<c-e>w', [[<cmd>e ~\Desktop\workspace<cr>]] }
+nmap { '<c-s>v', [[<cmd>vsplit <bar> e term://powershell <cr>]]}
+nmap { '<c-s>s', [[<cmd>split <bar> e term://powershell <cr>]]}
+tmap { '<Esc>', '<C-\\><C-n>' }
+
+autocmd {
+    { 'TermOpen' },
+    { '*' },
+    [[setlocal nonumber norelativenumber]]
+}
 
 irequire('config.lsp')
 -- irequire('config.treesitter')

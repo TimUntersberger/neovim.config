@@ -21,8 +21,16 @@ function M.nmap(args)
     M.map('n', args)
 end
 
+function M.vmap(args)
+    M.map('v', args)
+end
+
 function M.imap(args)
     M.map('i', args)
+end
+
+function M.tmap(args)
+    M.map('t', args)
 end
 
 return M
