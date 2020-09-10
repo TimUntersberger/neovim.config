@@ -25,18 +25,6 @@ function os_seperator()
     end
 end
 
-function let(x)
-    vim.cmd(string.format("let %s", x))
-end
-
-function set(x)
-    vim.cmd(string.format("set %s", x))
-end
-
-function colorscheme(val)
-    vim.cmd(string.format("colorscheme %s", val))
-end
-
 function command(args)
     local nargs = args.nargs or 0
     local name = args[1]

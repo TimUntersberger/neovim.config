@@ -6,9 +6,11 @@ return require('packer').startup(function()
 
     use '~/Desktop/workspace/projects/neogit'
 
-    use 'neovim/nvim-lspconfig'
-    -- use 'nvim-treesitter/nvim-treesitter'
+    use 'kyazdani42/nvim-web-devicons'
 
+    use 'neovim/nvim-lspconfig'
+
+    use 'nvim-treesitter/nvim-treesitter'
     use 'nvim-lua/popup.nvim'
     use 'nvim-lua/plenary.nvim'
     use 'TimUntersberger/telescope.nvim'

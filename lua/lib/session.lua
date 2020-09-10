@@ -25,7 +25,7 @@ function M.load(name)
     local path = resolve_session(name)
 
     if file_exists(path) then
-        vim.cmd("source " .. path)
+        vim.cmd("silent! source " .. path)
     else
         print(string.format("Couldn't find session with name '%s'", name))
     end

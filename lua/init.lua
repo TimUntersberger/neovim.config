@@ -8,30 +8,29 @@ else
 end
 irequire('plugins')
 
-let [[mapleader=" "]]
+vim.g.mapleader = " "
+vim.g.colors_name = 'gruvbox'
 
-set [[nu]]
-set [[rnu]]
-set [[noswapfile]]
-set [[nobackup]]
-set [[nowritebackup]]
-set [[expandtab]]
-set [[tabstop=2]]
-set [[splitright]]
-set [[splitbelow]]
-set [[softtabstop=2]]
-set [[shiftwidth=2]]
-set [[t_Co=256]]
-set [[termguicolors]]
-set [[nowrap]]
-set [[incsearch]]
-set [[inccommand=nosplit]]
-set [[nohlsearch]]
-set [[smartcase]]
-set [[hidden]]
-set [[mouse=a]]
-
-colorscheme [[gruvbox]]
+vim.o.nu = true
+vim.o.rnu = true
+vim.o.swapfile = false
+vim.o.backup = false
+vim.o.writebackup = false
+vim.o.expandtab = true
+vim.o.tabstop = 2
+vim.o.splitright = true
+vim.o.splitbelow = true
+vim.o.softtabstop = 2
+vim.o.shiftwidth = 2
+vim.o.t_Co = '256'
+vim.o.termguicolors = true
+vim.o.wrap = false
+vim.o.incsearch = true
+vim.o.inccommand = 'nosplit'
+vim.o.hlsearch = false
+vim.o.smartcase = true
+vim.o.hidden = true
+vim.o.mouse = 'a'
 
 nmap = irequire('lib.mapping').nmap
 imap = irequire('lib.mapping').imap
@@ -40,13 +39,6 @@ tmap = irequire('lib.mapping').tmap
 autocmd = irequire('lib.autocommand').autocmd
 
 nmap { '<F5>', [[<cmd>source $MYVIMRC<CR>]] }
-
-if vim.fn.has('win32') then
-    vmap { '<c-s-c>', '"*y' }
-    imap { '<c-s-v>', '"*p' }
-   -- irequire('config.win32')
-end
-
 nmap { '<leader>g', [[<cmd>lua require('neogit.status').create()<cr>]] }
 nmap { '<c-e>w', [[<cmd>e ~\Desktop\workspace<cr>]] }
 nmap { '<c-s>v', [[<cmd>vsplit <bar> e term://powershell <cr>]]}
@@ -56,7 +48,10 @@ tmap { '<Esc>', '<C-\\><C-n>' }
 autocmd {
     { 'TermOpen' },
     { '*' },
-    [[setlocal nonumber norelativenumber]]
+    function()
+        vim.wo.number = false
+        vim.wo.relativenumber = false
+    end
 }
 
 irequire('config.lsp')
