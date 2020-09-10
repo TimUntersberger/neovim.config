@@ -32,14 +32,11 @@ vim.o.smartcase = true
 vim.o.hidden = true
 vim.o.mouse = 'a'
 
-nmap = irequire('lib.mapping').nmap
-imap = irequire('lib.mapping').imap
-vmap = irequire('lib.mapping').vmap
-tmap = irequire('lib.mapping').tmap
-autocmd = irequire('lib.autocommand').autocmd
+irequire('lib.mapping').prelude()
+irequire('lib.autocommand').prelude()
 
 nmap { '<F5>', [[<cmd>source $MYVIMRC<CR>]] }
-nmap { '<leader>g', [[<cmd>lua require('neogit.status').create()<cr>]] }
+nmap { '<leader>g', require('neogit.status').create }
 nmap { '<c-e>w', [[<cmd>e ~\Desktop\workspace<cr>]] }
 nmap { '<c-s>v', [[<cmd>vsplit <bar> e term://powershell <cr>]]}
 nmap { '<c-s>s', [[<cmd>split <bar> e term://powershell <cr>]]}
@@ -49,8 +46,8 @@ autocmd {
     { 'TermOpen' },
     { '*' },
     function()
-        vim.wo.number = false
-        vim.wo.relativenumber = false
+        vim.wo.nu = false
+        vim.wo.rnu = false
     end
 }
 

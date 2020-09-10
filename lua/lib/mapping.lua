@@ -33,4 +33,12 @@ function M.tmap(args)
     M.map('t', args)
 end
 
+function M.prelude()
+    for key, val in pairs(M) do
+        if key ~= "map" then
+            _G[key] = val
+        end
+    end
+end
+
 return M

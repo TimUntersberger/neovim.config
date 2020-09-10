@@ -20,4 +20,8 @@ function M.autocmd(args)
     ))
 end
 
+function M.prelude()
+    autocmd = M.autocmd
+end
+
 return M

@@ -35,7 +35,7 @@ function M.close()
     M.save_current()
     vim.v.this_session = ""
     vim.cmd [[wa]]
-    vim.cmd [[%bd!]]
+    vim.cmd [[%bw!]]
 end
 
 function M.delete(name)
