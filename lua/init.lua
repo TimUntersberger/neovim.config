@@ -1,12 +1,8 @@
 -- This makes it possible to use pack functions
 vim.cmd [[packloadall]]
 
-if irequire ~= nil then
-    irequire('util')
-else
-    require('util')
-end
-irequire('plugins')
+require('util').prelude()
+require('plugins')
 
 vim.g.mapleader = " "
 vim.g.colors_name = 'gruvbox'
@@ -32,10 +28,22 @@ vim.o.smartcase = true
 vim.o.hidden = true
 vim.o.mouse = 'a'
 
-irequire('lib.mapping').prelude()
-irequire('lib.autocommand').prelude()
+require('lib.mapping').prelude()
+require('lib.autocommand').prelude()
+require('lib.command').prelude()
 
-nmap { '<F5>', [[<cmd>source $MYVIMRC<CR>]] }
+command {
+    "LuaInvalidate",
+    function(pattern) invalidate(pattern, true) end,
+    nargs = 1
+}
+
+nmap { '<F2>', [[:LuaInvalidate ]], silent = false }
+nmap { '<F3>', function()
+    invalidate('.*', true)
+    vim.cmd([[source $MYVIMRC]])
+    print("reloaded")
+end}
 nmap { '<leader>g', require('neogit.status').create }
 nmap { '<c-e>w', [[<cmd>e ~\Desktop\workspace<cr>]] }
 nmap { '<c-s>v', [[<cmd>vsplit <bar> e term://powershell <cr>]]}
@@ -51,9 +59,9 @@ autocmd {
     end
 }
 
-irequire('config.lsp')
--- irequire('config.treesitter')
-irequire('config.telescope')
-irequire('config.packer')
-irequire('config.completion-nvim')
-irequire('config.session')
+require('config.lsp')
+require('config.telescope')
+require('config.packer')
+require('config.completion-nvim')
+require('config.session')
+-- require('config.treesitter')

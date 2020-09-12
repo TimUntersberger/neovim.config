@@ -6,14 +6,22 @@ function M.map(mode, args)
     local lhs = args[1]
     local rhs = args[2]
 
+    if args.noremap == nil then
+        args.noremap = true
+    end
+
+    if args.silent == nil then
+        args.silent = true
+    end
+
     if type(rhs) == "function" then
         table.insert(MappingCallbacks, rhs)
         rhs = string.format("<cmd>lua MappingCallbacks[%d]()<cr>", #MappingCallbacks)
     end
 
     vim.api.nvim_set_keymap(mode, lhs, rhs, {
-        noremap = args.noremap or true,
-        silent = args.silent or true
+        noremap = args.noremap,
+        silent = args.silent
     })
 end
 

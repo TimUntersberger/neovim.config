@@ -1,4 +1,4 @@
-S = irequire('lib.session')
+S = require('lib.session')
 
 S.enable_auto_save()
 

@@ -6,7 +6,7 @@ local previewers = require('telescope.previewers')
 local actions = require('telescope.actions')
 local make_entry = require('telescope.make_entry')
 
-local session = irequire('lib.session')
+local session = require('lib.session')
 
 nmap { 'gr', builtin.lsp_references }
 nmap { '<c-l>ds', builtin.lsp_document_symbols }
@@ -14,16 +14,11 @@ nmap { '<c-l>ws', builtin.lsp_workspace_symbols }
 nmap { '<c-l>b', builtin.buffers }
 nmap { '<c-l>h', builtin.command_history }
 nmap { '<c-l>c', builtin.commands }
-nmap { '<leader>s', builtin.live_grep }
-nmap { 
-    '<c-l>q', 
-    function() 
-        builtin.quickfix{}
-    end
-}
+nmap { '<c-f>', builtin.live_grep }
+nmap { '<c-l>q', builtin.quickfix }
 
 nmap {
-    '<leader>f',
+    '<c-p>',
     function()
         pickers.new({}, {
             prompt = 'Files',
@@ -46,7 +41,7 @@ nmap {
                 results = session.list(),
                 entry_maker = make_entry.gen_from_string()
             },
-            sorter = sorters.get_norcalli_sorter(),
+            sorter = sorters.get_generic_fuzzy_sorter(),
             attach_mappings = function(prompt_bufnr, map)
                 local load_session = function()
                     local selection = actions.get_selected_entry(prompt_bufnr)

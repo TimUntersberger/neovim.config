@@ -1,13 +1,18 @@
-function invalidate(path)
-    package.loaded[path] = nil
+local M = {}
+
+function M.invalidate(path, recursive)
+    if recursive then
+        for key, value in pairs(package.loaded) do
+            if key ~= "_G" and value and vim.fn.match(key, path) ~= -1 then
+                package.loaded[key] = nil
+            end
+        end
+    else
+        package.loaded[path] = nil
+    end
 end
 
-function irequire(path)
-    invalidate(path)
-    return require(path)
-end
-
-function file_exists(name)
+function M.file_exists(name)
     local f=io.open(name,"r")
     if f~=nil then
         io.close(f)
@@ -17,7 +22,7 @@ function file_exists(name)
     end
 end
 
-function os_seperator()
+function M.os_seperator()
     if vim.fn.has("win32") then
         return "\\"
     else
@@ -25,10 +30,14 @@ function os_seperator()
     end
 end
 
-function command(args)
-    local nargs = args.nargs or 0
-    local name = args[1]
-    local rhs = args[2]
-    vim.cmd(string.format("command! -nargs=%d %s %s", nargs, name, rhs))
+function M.prelude()
+    local dont = { "prelude" }
+
+    for key, value in pairs(M) do
+        if not vim.tbl_contains(dont, key) then
+            _G[key] = value
+        end
+    end
 end
 
+return M
