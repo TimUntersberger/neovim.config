@@ -12,10 +12,6 @@ M.highlight = function(name)
     return '%#' .. name .. '#'
 end
 
-M.current_branch = function()
-    return vim.fn.systemlist([[git rev-parse --abbrev-ref HEAD]])[1]
-end
-
 M.current_file_icon = function()
     return vim.o.filetype
 end
