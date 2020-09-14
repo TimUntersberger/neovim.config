@@ -10,7 +10,7 @@ sl.setup {
   function()
     local branch = neogit.status.get_status().branch
 
-    if not branch then
+    if not branch or branch == '' then
       return ''
     end
 
