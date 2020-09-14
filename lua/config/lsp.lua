@@ -16,6 +16,13 @@ nmap { 'gh', [[<cmd>lua vim.lsp.buf.hover()<CR>]] }
 nmap { 'gi', [[<cmd>lua vim.lsp.buf.implementation()<CR>]] }
 nmap { 'gt', [[<cmd>lua vim.lsp.buf.type_definition()<CR>]] }
 
+command {
+  'LspRestart',
+  function()
+    vim.lsp.stop_client(vim.lsp.get_active_clients())
+  end
+}
+
 -- TODO: Change to something using telescope
 nmap { '<leader>la', [[<cmd>lua vim.lsp.buf.code_action()<CR>]] }
 nmap { '<leader>ld', [[<cmd>lua vim.lsp.util.show_line_diagnostics()<CR>]] }

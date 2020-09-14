@@ -16,17 +16,13 @@ nmap { '<c-l>h', builtin.command_history }
 nmap { '<c-l>c', builtin.commands }
 nmap { '<c-f>', builtin.live_grep }
 nmap { '<c-l>q', builtin.quickfix }
-
+nmap { '<c-.>', builtin.lsp_code_actions }
 nmap {
     '<c-p>',
     function()
-        pickers.new({}, {
-            prompt = 'Files',
-            finder    = finders.new_oneshot_job({ "rg", "-i", "--hidden", "--files", "-g", "!.git" }, {
-                entry_maker = make_entry.gen_from_file()
-            }),
-            sorter    = sorters.get_fuzzy_file(),
-        }):find()
+        builtin.find_files {
+            find_command = { "rg", "-i", "--hidden", "--files", "-g", "!.git" }
+        }
     end
 }
 

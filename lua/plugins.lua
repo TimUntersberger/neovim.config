@@ -2,6 +2,8 @@ return require('packer').startup(function()
     use 'morhetz/gruvbox'
     use 'sheerun/vim-polyglot'
 
+    use 'tpope/vim-commentary'
+
     use '~/Desktop/workspace/projects/neogit'
     use '~/Desktop/workspace/forks/packer.nvim'
     use '~/Desktop/workspace/forks/telescope.nvim'

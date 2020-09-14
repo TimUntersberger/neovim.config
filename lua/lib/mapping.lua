@@ -6,6 +6,10 @@ function M.map(mode, args)
     local lhs = args[1]
     local rhs = args[2]
 
+    if not rhs or not lhs then
+        return
+    end
+
     if args.noremap == nil then
         args.noremap = true
     end

@@ -30,6 +30,10 @@ function M.os_seperator()
     end
 end
 
+function M.map(t, f)
+    return vim.tbl_map(f, t)
+end
+
 function M.prelude()
     local dont = { "prelude" }
 
