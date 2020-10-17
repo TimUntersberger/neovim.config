@@ -14,6 +14,10 @@ function M.map(mode, args)
         args.noremap = true
     end
 
+    if args.buffer == nil then
+        args.buffer = false
+    end
+
     if args.silent == nil then
         args.silent = true
     end
@@ -23,7 +27,13 @@ function M.map(mode, args)
         rhs = string.format("<cmd>lua MappingCallbacks[%d]()<cr>", #MappingCallbacks)
     end
 
-    vim.api.nvim_set_keymap(mode, lhs, rhs, {
+    local f = vim.api.nvim_set_keymap
+
+    if args.buffer then
+        f = function(...) vim.api.nvim_buf_set_keymap(0, ...) end
+    end
+
+    f(mode, lhs, rhs, {
         noremap = args.noremap,
         silent = args.silent
     })

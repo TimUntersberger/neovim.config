@@ -6,6 +6,12 @@ local previewers = require('telescope.previewers')
 local actions = require('telescope.actions')
 local make_entry = require('telescope.make_entry')
 
+require('telescope').setup {
+    defaults = {
+        borderchars = {"─", "│", "─", "│", "┌", "┐", "┘", "└"},
+    }
+}
+
 local session = require('lib.session')
 
 nmap { 'gr', builtin.lsp_references }
@@ -25,8 +31,6 @@ nmap {
         }
     end
 }
-
--- TODO: picker that lists all code actions and the preview shows the description
 
 nmap {
     '<c-l>s',

@@ -26,4 +26,6 @@ command {
 -- TODO: Change to something using telescope
 nmap { '<leader>la', [[<cmd>lua vim.lsp.buf.code_action()<CR>]] }
 nmap { '<leader>ld', [[<cmd>lua vim.lsp.util.show_line_diagnostics()<CR>]] }
-nmap { '<leader>lr', [[<cmd>lua vim.lsp.buf.rename()<CR>]] }
+nmap { 'gR', [[<cmd>lua vim.lsp.buf.rename()<CR>]] }
+nmap { ']d', [[<cmd>NextDiagnostic<CR>]] }
+nmap { '[d', [[<cmd>PrevDiagnostic<CR>]] }

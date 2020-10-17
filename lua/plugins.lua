@@ -5,14 +5,17 @@ return require('packer').startup(function()
     use 'tpope/vim-commentary'
 
     use '~/Desktop/workspace/projects/neogit'
-    use '~/Desktop/workspace/forks/packer.nvim'
-    use '~/Desktop/workspace/forks/telescope.nvim'
+
+    use 'wbthomason/packer.nvim'
+
+    use 'voldikss/vim-floaterm'
 
     use 'kyazdani42/nvim-web-devicons'
 
     use 'neovim/nvim-lspconfig'
 
     use 'nvim-treesitter/nvim-treesitter'
+    use 'nvim-lua/telescope.nvim'
     use 'nvim-lua/popup.nvim'
     use 'nvim-lua/plenary.nvim'
     use 'nvim-lua/completion-nvim'

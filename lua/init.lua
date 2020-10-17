@@ -44,8 +44,10 @@ nmap { '<F3>', function()
     vim.cmd([[source $MYVIMRC]])
     print("reloaded")
 end}
+
 nmap { '<leader>g', require('neogit.status').create }
 nmap { '<c-e>w', [[<cmd>e ~\Desktop\workspace<cr>]] }
+
 nmap { '<c-s>v', [[<cmd>vsplit <bar> e term://powershell <cr>]]}
 nmap { '<c-s>s', [[<cmd>split <bar> e term://powershell <cr>]]}
 tmap { '<Esc>', '<C-\\><C-n>' }
@@ -59,6 +61,14 @@ autocmd {
     end
 }
 
+nmap {
+  "<c-n>",
+  "<cmd>FloatermNew lf<cr>"
+}
+
+vim.g.floaterm_autoclose = 2
+
+-- require('config.netrw')
 require('config.lsp')
 require('config.telescope')
 require('config.packer')
