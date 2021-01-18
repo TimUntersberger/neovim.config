@@ -4,8 +4,8 @@ vim.cmd [[packloadall]]
 require('util').prelude()
 require('plugins')
 
+vim.cmd [[set fillchars+=vert:\ ]]
 vim.g.mapleader = " "
-vim.g.colors_name = 'gruvbox'
 
 vim.o.nu = true
 vim.o.rnu = true
@@ -32,10 +32,28 @@ require('lib.mapping').prelude()
 require('lib.autocommand').prelude()
 require('lib.command').prelude()
 
+autocmd {
+  { "BufEnter", "BufWinEnter", "TabEnter" },
+  { "*.rs" },
+  function()
+    require('lsp_extensions').inlay_hints{}
+  end
+}
+
 command {
     "LuaInvalidate",
     function(pattern) invalidate(pattern, true) end,
     nargs = 1
+}
+
+command {
+  "Bd",
+  "bp|bd #"
+}
+
+command {
+  "Bw",
+  "bp|bw #"
 }
 
 nmap { '<F2>', [[:LuaInvalidate ]], silent = false }
@@ -61,18 +79,16 @@ autocmd {
     end
 }
 
-nmap {
-  "<c-n>",
-  "<cmd>FloatermNew lf<cr>"
-}
-
 vim.g.floaterm_autoclose = 2
 
 -- require('config.netrw')
+require('config.neofs')
 require('config.lsp')
 require('config.telescope')
 require('config.packer')
 require('config.completion-nvim')
 require('config.session')
 require('config.statusline')
--- require('config.treesitter')
+require('config.treesitter')
+
+vim.cmd [[colorscheme dracula]]

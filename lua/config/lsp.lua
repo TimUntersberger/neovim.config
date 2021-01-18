@@ -1,13 +1,8 @@
-local lsp = require('nvim_lsp')
+local lsp = require('lspconfig')
 local servers = {"tsserver", "vimls", "jsonls", "rust_analyzer"}
 
-local on_attach_vim = function()
-  require'completion'.on_attach()
-  require'diagnostic'.on_attach()
-end
-
 for _, server in pairs(servers) do
-  lsp[server].setup{on_attach=on_attach_vim}
+  lsp[server].setup{on_attach=require'completion'.on_attach()}
 end
 
 nmap { 'gD', [[<cmd>lua vim.lsp.buf.declaration()<CR>]] }
@@ -23,9 +18,7 @@ command {
   end
 }
 
--- TODO: Change to something using telescope
-nmap { '<leader>la', [[<cmd>lua vim.lsp.buf.code_action()<CR>]] }
-nmap { '<leader>ld', [[<cmd>lua vim.lsp.util.show_line_diagnostics()<CR>]] }
+nmap { '<leader>ld', function() vim.lsp.diagnostic.show_line_diagnostics() end }
 nmap { 'gR', [[<cmd>lua vim.lsp.buf.rename()<CR>]] }
-nmap { ']d', [[<cmd>NextDiagnostic<CR>]] }
-nmap { '[d', [[<cmd>PrevDiagnostic<CR>]] }
+nmap { ']d', function() vim.lsp.diagnostic.goto_next { wrap = false } end }
+nmap { '[d', function() vim.lsp.diagnostic.goto_prev { wrap = false } end }
