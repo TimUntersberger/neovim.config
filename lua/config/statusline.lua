@@ -8,7 +8,13 @@ sl.setup {
   c.current_file,
   c.padding(1),
   function()
-    local branch = neogit.status.get_status().branch
+    local status = neogit.status.get_status()
+
+    if status == nil then
+      return ''
+    end
+
+    local branch = status.branch
 
     if not branch or branch == '' then
       return ''

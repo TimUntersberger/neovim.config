@@ -2,11 +2,13 @@
 vim.cmd [[packloadall]]
 
 require('util').prelude()
+require('lib.mapping').prelude()
+require('lib.autocommand').prelude()
+require('lib.command').prelude()
 require('plugins')
 
-vim.cmd [[set fillchars+=vert:\ ]]
 vim.g.mapleader = " "
-
+vim.o.ff = "unix"
 vim.o.nu = true
 vim.o.rnu = true
 vim.o.swapfile = false
@@ -28,67 +30,35 @@ vim.o.smartcase = true
 vim.o.hidden = true
 vim.o.mouse = 'a'
 
-require('lib.mapping').prelude()
-require('lib.autocommand').prelude()
-require('lib.command').prelude()
+vim.cmd [[set fillchars+=vert:\ ]]
 
-autocmd {
-  { "BufEnter", "BufWinEnter", "TabEnter" },
-  { "*.rs" },
-  function()
-    require('lsp_extensions').inlay_hints{}
+local configurations = {
+  "terminals",
+  "webdevicons",
+  "buffers",
+  "lua",
+  "neofs",
+  "lsp",
+  "telescope",
+  "packer",
+  "neogit",
+  "completion-nvim",
+  "session",
+  "statusline",
+  "treesitter",
+  "lspsaga"
+}
+
+for _, name in ipairs(configurations) do
+  local _, err = pcall(function()
+    require('config.' .. name)
+  end)
+
+  if err then
+    err = string.gsub(table.concat(vim.split(err, "\n"), "\n\n"), "\t", "  ")
+    print("Loading " .. name .. " config failed. \n  Error: " .. err)
   end
-}
+end
 
-command {
-    "LuaInvalidate",
-    function(pattern) invalidate(pattern, true) end,
-    nargs = 1
-}
-
-command {
-  "Bd",
-  "bp|bd #"
-}
-
-command {
-  "Bw",
-  "bp|bw #"
-}
-
-nmap { '<F2>', [[:LuaInvalidate ]], silent = false }
-nmap { '<F3>', function()
-    invalidate('.*', true)
-    vim.cmd([[source $MYVIMRC]])
-    print("reloaded")
-end}
-
-nmap { '<leader>g', require('neogit.status').create }
-nmap { '<c-e>w', [[<cmd>e ~\Desktop\workspace<cr>]] }
-
-nmap { '<c-s>v', [[<cmd>vsplit <bar> e term://powershell <cr>]]}
-nmap { '<c-s>s', [[<cmd>split <bar> e term://powershell <cr>]]}
-tmap { '<Esc>', '<C-\\><C-n>' }
-
-autocmd {
-    { 'TermOpen' },
-    { '*' },
-    function()
-        vim.wo.nu = false
-        vim.wo.rnu = false
-    end
-}
-
-vim.g.floaterm_autoclose = 2
-
--- require('config.netrw')
-require('config.neofs')
-require('config.lsp')
-require('config.telescope')
-require('config.packer')
-require('config.completion-nvim')
-require('config.session')
-require('config.statusline')
-require('config.treesitter')
-
+-- has to be below the configurations, because the webdevicons configuration has to be run before changing the colorscheme
 vim.cmd [[colorscheme dracula]]

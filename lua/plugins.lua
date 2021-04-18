@@ -12,16 +12,22 @@ return require('packer').startup(function()
 
     use 'wbthomason/packer.nvim'
 
-    use 'voldikss/vim-floaterm'
+    -- use 'windwp/nvim-autopairs'
+    use 'glepnir/lspsaga.nvim'
 
     use 'kyazdani42/nvim-web-devicons'
 
     use 'neovim/nvim-lspconfig'
 
+    -- use 'hrsh7th/nvim-compe'
+
     use 'nvim-treesitter/nvim-treesitter'
+    use 'JoosepAlviste/nvim-ts-context-commentstring'
+
     use 'nvim-lua/lsp_extensions.nvim'
     use 'nvim-lua/telescope.nvim'
     use 'nvim-lua/popup.nvim'
     use 'nvim-lua/plenary.nvim'
     use 'nvim-lua/completion-nvim'
+    use 'steelsojka/completion-buffers'
 end)

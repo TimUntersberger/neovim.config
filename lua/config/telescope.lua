@@ -9,6 +9,16 @@ local make_entry = require('telescope.make_entry')
 require('telescope').setup {
     defaults = {
         borderchars = {"─", "│", "─", "│", "┌", "┐", "┘", "└"},
+        layout_strategy = "center",
+        sorting_strategy = "ascending",
+        results_height = 15,
+        results_title = false,
+        width = 80,
+        mappings = {
+          i = {
+            ["<esc>"] = actions.close
+          }
+        }
     }
 }
 
@@ -22,7 +32,7 @@ nmap { '<c-l>h', builtin.command_history }
 nmap { '<c-l>c', builtin.commands }
 nmap { '<c-f>', builtin.live_grep }
 nmap { '<c-l>q', builtin.quickfix }
-nmap { '<c-.>', builtin.lsp_code_actions }
+
 nmap {
     '<c-p>',
     function()
@@ -56,9 +66,6 @@ nmap {
                     session.delete(selection.value)
                 end
 
-                map('i', '<c-c>', function()
-                  actions.close(prompt_bufnr)
-                end)
                 map('i', '<CR>', load_session)
                 map('n', '<CR>', load_session)
                 map('i', '<c-d>', delete_session)

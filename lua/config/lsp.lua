@@ -1,24 +1,31 @@
 local lsp = require('lspconfig')
-local servers = {"tsserver", "vimls", "jsonls", "rust_analyzer"}
+local configs = {}
+local servers = {"tsserver", "vimls", "rust_analyzer", "vuels"}
 
 for _, server in pairs(servers) do
-  lsp[server].setup{on_attach=require'completion'.on_attach()}
+  local config = configs[server] or {}
+  lsp[server].setup(config)
 end
 
 nmap { 'gD', [[<cmd>lua vim.lsp.buf.declaration()<CR>]] }
 nmap { 'gd', [[<cmd>lua vim.lsp.buf.definition()<CR>]] }
-nmap { 'gh', [[<cmd>lua vim.lsp.buf.hover()<CR>]] }
 nmap { 'gi', [[<cmd>lua vim.lsp.buf.implementation()<CR>]] }
 nmap { 'gt', [[<cmd>lua vim.lsp.buf.type_definition()<CR>]] }
+nmap { '<c-=>', [[<cmd>lua vim.lsp.buf.formatting()<CR>]] }
 
-command {
-  'LspRestart',
-  function()
-    vim.lsp.stop_client(vim.lsp.get_active_clients())
-  end
-}
+-- LspSaga mappings
+nmap { 'gh', [[<cmd>Lspsaga hover_doc<CR>]] }
+nmap { '<leader>ld', [[<cmd>Lspsaga show_line_diagnostics<CR>]] }
+nmap { 'gR', [[<cmd>Lspsaga rename<CR>]] }
+nmap { ']d', [[<cmd>Lspsaga diagnostic_jump_next<CR>]] }
+nmap { '[d', [[<cmd>Lspsaga diagnostic_jump_prev<CR>]] }
+nmap { '<c-.>', [[<cmd>Lspsaga code_action<CR>]] }
+vmap { '<c-.>', [[<cmd><C-U>Lspsaga range_code_action<CR>]] }
 
-nmap { '<leader>ld', function() vim.lsp.diagnostic.show_line_diagnostics() end }
-nmap { 'gR', [[<cmd>lua vim.lsp.buf.rename()<CR>]] }
-nmap { ']d', function() vim.lsp.diagnostic.goto_next { wrap = false } end }
-nmap { '[d', function() vim.lsp.diagnostic.goto_prev { wrap = false } end }
+-- autocmd {
+--   { "BufEnter", "BufWinEnter", "TabEnter" },
+--   { "*.rs" },
+--   function()
+--     require('lsp_extensions').inlay_hints{}
+--   end
+-- }
