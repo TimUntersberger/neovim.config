@@ -44,7 +44,7 @@ local configurations = {
   "neogit",
   "completion-nvim",
   "session",
-  "statusline",
+  "lualine",
   "treesitter",
   "lspsaga"
 }

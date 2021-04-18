@@ -2,7 +2,7 @@ return require('packer').startup(function()
     use 'morhetz/gruvbox'
     use 'joshdick/onedark.vim'
     use 'dracula/vim'
-    -- use 'sheerun/vim-polyglot'
+    use 'hoob3rt/lualine.nvim'
 
     use 'tpope/vim-commentary'
 
@@ -12,7 +12,6 @@ return require('packer').startup(function()
 
     use 'wbthomason/packer.nvim'
 
-    -- use 'windwp/nvim-autopairs'
     use 'glepnir/lspsaga.nvim'
 
     use 'kyazdani42/nvim-web-devicons'
