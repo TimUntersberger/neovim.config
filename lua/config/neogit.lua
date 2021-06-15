@@ -4,10 +4,20 @@ local Path = require 'plenary.path'
 local void, await, async, scheduler = a.void, a.await, a.async, a.scheduler
 
 neogit.setup {
-  disable_signs = true
+  disable_signs = true,
+  integrations = {
+    diffview = true
+  }
 }
 
-local git_root = require('neogit.lib.git.cli').git_root
+command {
+  'NeogitToggleAutoRefresh',
+  function()
+    local config = neogit.get_config()
+    config.auto_refresh = not config.auto_refresh
+    vim.notify("Neogit: auto refresh is now " .. (config.auto_refresh and "enabled" or "disabled"))
+  end
+}
 
 -- Cd from repo root
 command { 

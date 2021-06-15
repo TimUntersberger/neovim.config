@@ -1,6 +1,14 @@
 -- This makes it possible to use pack functions
 vim.cmd [[packloadall]]
 
+-- bootstrap packer.nvim if not already installed
+local install_path = vim.fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+
+if fn.empty(vim.fn.glob(install_path)) > 0 then
+  vim.fn.system({'git', 'clone', 'https://github.com/wbthomason/packer.nvim', install_path})
+  vim.api.nvim_command 'packadd packer.nvim'
+end
+
 require('util').prelude()
 require('lib.mapping').prelude()
 require('lib.autocommand').prelude()
@@ -32,16 +40,21 @@ vim.o.mouse = 'a'
 
 vim.cmd [[set fillchars+=vert:\ ]]
 
+command { "Prettier", "!prettier -w %" }
+command { "ClearLineVirtTxt", "lua vim.api.nvim_buf_set_virtual_text(0, -1, vim.api.nvim_win_get_cursor(0)[1], {}, {})" }
+
 local configurations = {
   "terminals",
   "webdevicons",
   "buffers",
   "lua",
   "neofs",
+  "quickfix",
   "lsp",
   "telescope",
   "packer",
   "neogit",
+  "diffview",
   "completion-nvim",
   "session",
   "lualine",

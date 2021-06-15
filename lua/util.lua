@@ -12,6 +12,26 @@ function M.invalidate(path, recursive)
     end
 end
 
+function M.time(name, f)
+  local before = os.clock()
+  local res = f()
+  print(name .. " took " .. (os.clock() - before) * 1000 .. "ms")
+  return res
+end
+
+function M.dbg(x)
+  if type(x) == "function" then
+    return function(...)
+      local res = x(...)
+      inspect(res)
+      return res
+    end
+  end
+
+  inspect(x)
+  return x
+end
+
 function M.file_exists(name)
     local f=io.open(name,"r")
     if f~=nil then

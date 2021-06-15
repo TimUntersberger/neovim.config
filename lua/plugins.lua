@@ -10,6 +10,8 @@ return require('packer').startup(function()
     use '~/Desktop/workspace/projects/neofs'
     use '~/Desktop/workspace/projects/nog.vim'
 
+    use 'sindrets/diffview.nvim'
+
     use 'wbthomason/packer.nvim'
 
     use 'glepnir/lspsaga.nvim'

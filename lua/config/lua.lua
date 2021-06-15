@@ -10,3 +10,4 @@ nmap { '<F3>', function()
     vim.cmd([[source $MYVIMRC]])
     print("reloaded")
 end}
+nmap { '<F4>', [[<cmd>luafile %<cr>]], silent = false }
