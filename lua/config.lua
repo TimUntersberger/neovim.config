@@ -1,7 +1,7 @@
 local M = {}
 
 function M.setup(disabled_configs)
-  local configurations = require 'plenary.scandir'.scan_dir './lua/config'
+  local configurations = require 'plenary.scandir'.scan_dir(vim.fn.stdpath('config') .. '/lua/config')
 
   for _, path in ipairs(configurations) do
     local name = path:match("./lua/config\\?/?(.*).lua")
