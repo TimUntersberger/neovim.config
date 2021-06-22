@@ -29,5 +29,8 @@ require('plugins').setup {
 command { "Prettier", "!prettier -w %" }
 command { "ClearLineVirtTxt", "lua vim.api.nvim_buf_set_virtual_text(0, -1, vim.api.nvim_win_get_cursor(0)[1], {}, {})" }
 
+-- has to be before loading the configs
+vim.g.mapleader = " "
+
 require('config').setup { "compe", "statusline", "netrw" }
 require('options') -- has to be below the configurations, because the webdevicons configuration has to be run before changing the colorscheme

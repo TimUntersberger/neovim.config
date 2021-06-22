@@ -12,6 +12,12 @@ function M.invalidate(path, recursive)
     end
 end
 
+function M.inspect(...)
+  for _, x in ipairs({...}) do
+    print(vim.inspect(x))
+  end
+end
+
 function M.time(name, f)
   local before = os.clock()
   local res = f()
