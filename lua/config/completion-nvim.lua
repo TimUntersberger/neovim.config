@@ -6,7 +6,7 @@ vim.g.completion_enable_snippet = ''
 vim.g.completion_enable_fuzzy_match = 1
 
 imap { "<c-n>", function()
-  c.triggerCompletion()
+  error("TODO")
 end}
 
 autocmd {

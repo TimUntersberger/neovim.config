@@ -5,9 +5,17 @@ command {
 }
 
 nmap { '<F2>', [[:LuaInvalidate ]], silent = false }
+local pattern = ""
 nmap { '<F3>', function()
-    invalidate('.*', true)
+  local input = vim.fn.input {
+    prompt = "Module: ",
+    default = pattern,
+    cancelreturn = "__CANCEL__"
+  }
+  if input ~= "__CANCEL__" then
+    pattern = input
+    invalidate(pattern, true)
     vim.cmd([[source $MYVIMRC]])
-    print("reloaded")
+  end
 end}
 nmap { '<F4>', [[<cmd>luafile %<cr>]], silent = false }

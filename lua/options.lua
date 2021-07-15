@@ -1,4 +1,3 @@
-vim.g.mapleader = " "
 vim.o.ff = "unix"
 vim.o.nu = true
 vim.o.rnu = true
@@ -11,7 +10,6 @@ vim.o.splitright = true
 vim.o.splitbelow = true
 vim.o.softtabstop = 2
 vim.o.shiftwidth = 2
-vim.o.t_Co = '256'
 vim.o.termguicolors = true
 vim.o.wrap = false
 vim.o.incsearch = true

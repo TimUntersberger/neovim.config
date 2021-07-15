@@ -10,10 +10,15 @@ require('telescope').setup {
     defaults = {
         borderchars = {"─", "│", "─", "│", "┌", "┐", "┘", "└"},
         layout_strategy = "center",
+        layout_config = {
+          width = 0.4,
+          height = 0.3,
+          center = {
+            preview_cutoff = 1000 -- never display preview
+          }
+        },
         sorting_strategy = "ascending",
-        results_height = 15,
         results_title = false,
-        width = 80,
         mappings = {
           i = {
             ["<esc>"] = actions.close

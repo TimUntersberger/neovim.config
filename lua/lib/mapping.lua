@@ -1,6 +1,5 @@
-MappingCallbacks = {}
-
 local M = {}
+M.callbacks = {}
 
 function M.map(mode, args)
     local lhs = args[1]
@@ -22,9 +21,12 @@ function M.map(mode, args)
         args.silent = true
     end
 
+    local id
+
     if type(rhs) == "function" then
-        table.insert(MappingCallbacks, rhs)
-        rhs = string.format("<cmd>lua MappingCallbacks[%d]()<cr>", #MappingCallbacks)
+        table.insert(M.callbacks, rhs)
+        id = #M.callbacks
+        rhs = string.format("<cmd>lua require('lib.mapping').callbacks[%d]()<cr>", id)
     end
 
     local f = vim.api.nvim_set_keymap
@@ -37,22 +39,24 @@ function M.map(mode, args)
         noremap = args.noremap,
         silent = args.silent
     })
+
+    return id
 end
 
 function M.nmap(args)
-    M.map('n', args)
+    return M.map('n', args)
 end
 
 function M.vmap(args)
-    M.map('v', args)
+    return M.map('v', args)
 end
 
 function M.imap(args)
-    M.map('i', args)
+    return M.map('i', args)
 end
 
 function M.tmap(args)
-    M.map('t', args)
+    return M.map('t', args)
 end
 
 function M.prelude()

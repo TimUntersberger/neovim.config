@@ -2,6 +2,8 @@ local lsp = require('lspconfig')
 local configs = {}
 local servers = {"tsserver", "vimls", "rust_analyzer", "vuels"}
 
+vim.lsp.set_log_level("debug")
+
 for _, server in pairs(servers) do
   local config = configs[server] or {}
   lsp[server].setup(config)

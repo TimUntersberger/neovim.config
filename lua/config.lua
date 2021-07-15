@@ -1,11 +1,11 @@
 local M = {}
 
-function M.setup(disabled_configs)
+local function _setup(filter)
   local configurations = require 'plenary.scandir'.scan_dir(vim.fn.stdpath('config') .. '/lua/config')
 
   for _, path in ipairs(configurations) do
     local name = path:match("./lua/config\\?/?(.*).lua")
-    if not vim.tbl_contains(disabled_configs, name) then
+    if filter(name) then
       local _, err = pcall(function()
         require('config.' .. name)
       end)
@@ -16,6 +16,18 @@ function M.setup(disabled_configs)
       end
     end
   end
+end
+
+function M.setup(disabled_configs)
+  _setup(function(name)
+    return not vim.tbl_contains(disabled_configs, name)
+  end)
+end
+
+function M.setup_only(configs)
+  _setup(function(name)
+    return vim.tbl_contains(configs, name)
+  end)
 end
 
 return M

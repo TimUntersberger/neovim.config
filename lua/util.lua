@@ -1,11 +1,22 @@
 local M = {}
 
+local exclude = { "bit", "_G", "vim.*" }
+
 function M.invalidate(path, recursive)
     if recursive then
         for key, value in pairs(package.loaded) do
-            if key ~= "_G" and value and vim.fn.match(key, path) ~= -1 then
+          if value then
+            local skip = false
+            for _, x in ipairs(exclude) do
+              if vim.fn.match(key, x) ~= -1 then
+                skip = true
+                break
+              end
+            end
+            if not skip and vim.fn.match(key, path) ~= -1 then
                 package.loaded[key] = nil
             end
+          end
         end
     else
         package.loaded[path] = nil
@@ -13,9 +24,13 @@ function M.invalidate(path, recursive)
 end
 
 function M.inspect(...)
-  for _, x in ipairs({...}) do
-    print(vim.inspect(x))
-  end
+  local args = {...}
+  -- need to wrap this in a vim.schedule else you will encounter a segment fault when using the function inside a coroutine
+  vim.schedule(function()
+    for _, x in ipairs(args) do
+      print(vim.inspect(x))
+    end
+  end)
 end
 
 function M.time(name, f)
