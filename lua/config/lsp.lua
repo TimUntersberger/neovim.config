@@ -1,6 +1,16 @@
 local lsp = require('lspconfig')
 local configs = {}
-local servers = {"tsserver", "vimls", "rust_analyzer", "vuels"}
+
+local servers = {
+  "tsserver",
+  "vimls",
+  "rust_analyzer",
+  "vuels",
+  "html",
+  "cssls",
+  "dockerls",
+  "jsonls"
+}
 
 vim.lsp.set_log_level("debug")
 

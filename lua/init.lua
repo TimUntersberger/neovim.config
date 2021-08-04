@@ -8,7 +8,6 @@ require('plugins').setup {
   'tpope/vim-commentary',
   '~/Desktop/workspace/projects/neogit',
   '~/Desktop/workspace/projects/neofs',
-  '~/Desktop/workspace/projects/nog.vim',
   'sindrets/diffview.nvim',
   'wbthomason/packer.nvim',
   'vhyrro/neorg',
@@ -22,6 +21,7 @@ require('plugins').setup {
   'nvim-lua/telescope.nvim',
   'nvim-lua/popup.nvim',
   'nvim-lua/plenary.nvim',
+  'pwntester/octo.nvim',
   -- 'nvim-lua/completion-nvim',
   -- 'steelsojka/completion-buffers',
 }

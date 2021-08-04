@@ -35,4 +35,5 @@ command {
     [[lua print(vim.inspect(S.list()))]]
 }
 
-vim.cmd [[set sessionoptions+=localoptions]]
+
+vim.o.sessionoptions = "curdir,winpos,resize,winsize,cursor,options"
