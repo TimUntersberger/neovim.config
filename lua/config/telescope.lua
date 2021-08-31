@@ -38,11 +38,25 @@ nmap { '<c-l>c', builtin.commands }
 nmap { '<c-f>', builtin.live_grep }
 nmap { '<c-l>q', builtin.quickfix }
 
+local search_cwd = ""
+
+command { 'ChangeFindFilesCwd', function()
+  local input = vim.fn.input {
+    prompt = "Cwd prefix: ",
+    default = search_cwd,
+    cancelreturn = "__CANCEL__"
+  }
+  if input ~= "__CANCEL__" then
+    search_cwd = input
+  end
+end}
+
 nmap {
     '<c-p>',
     function()
         builtin.find_files {
-            find_command = { "rg", "-i", "--hidden", "--files", "-g", "!.git" }
+            find_command = { "rg", "-i", "--hidden", "--files", "-g", "!.git" },
+            cwd = vim.fn.getcwd() .. "/" .. search_cwd
         }
     end
 }

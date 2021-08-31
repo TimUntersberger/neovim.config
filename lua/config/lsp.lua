@@ -1,5 +1,9 @@
 local lsp = require('lspconfig')
-local configs = {}
+local configs = {
+  rust_analyzer = {
+    cmd = { "rustup", "run", "nightly", "rust-analyzer" }
+  }
+}
 
 local servers = {
   "tsserver",
@@ -34,10 +38,10 @@ nmap { '[d', [[<cmd>Lspsaga diagnostic_jump_prev<CR>]] }
 nmap { '<c-.>', [[<cmd>Lspsaga code_action<CR>]] }
 vmap { '<c-.>', [[<cmd><C-U>Lspsaga range_code_action<CR>]] }
 
--- autocmd {
---   { "BufEnter", "BufWinEnter", "TabEnter" },
---   { "*.rs" },
---   function()
---     require('lsp_extensions').inlay_hints{}
---   end
--- }
+autocmd {
+  { "BufEnter", "BufWinEnter", "TabEnter" },
+  { "*.rs" },
+  function()
+    require('lsp_extensions').inlay_hints{}
+  end
+}

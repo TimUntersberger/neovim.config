@@ -22,6 +22,7 @@ require('plugins').setup {
   'nvim-lua/popup.nvim',
   'nvim-lua/plenary.nvim',
   'pwntester/octo.nvim',
+  'milisims/nvim-luaref',
   -- 'nvim-lua/completion-nvim',
   -- 'steelsojka/completion-buffers',
 }
