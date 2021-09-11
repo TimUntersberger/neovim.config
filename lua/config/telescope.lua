@@ -56,7 +56,7 @@ nmap {
     function()
         builtin.find_files {
             find_command = { "rg", "-i", "--hidden", "--files", "-g", "!.git" },
-            cwd = vim.fn.getcwd() .. "/" .. search_cwd
+            -- cwd = vim.fn.getcwd() .. "\\" .. search_cwd
         }
     end
 }
