@@ -64,7 +64,7 @@ function M.file_exists(name)
 end
 
 function M.os_seperator()
-    if vim.fn.has("win32") then
+    if jit.os == "windows" then
         return "\\"
     else
         return "/"
