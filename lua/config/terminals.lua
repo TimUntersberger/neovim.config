@@ -1,3 +1,11 @@
+local shell = "pwsh"
+
+if jit.os == "OSX" then
+  shell = "zsh"
+elseif jit.os == "UNIX" then
+  shell = "bash"
+end
+
 local function create_scratch(height, width)
   height = height or 30
   width = width or 120
@@ -20,11 +28,11 @@ local function create_scratch(height, width)
     col = left
   })
 
-  vim.fn.termopen({ "pwsh" })
+  vim.fn.termopen({ shell })
 end
 
-nmap { '<c-s>v', [[<cmd>vsplit <bar> e term://pwsh <cr>]]}
-nmap { '<c-s>s', [[<cmd>split <bar> e term://pwsh <cr>]]}
+nmap { '<c-s>v', string.format([[<cmd>vsplit <bar> e term://%s <cr>]], shell)}
+nmap { '<c-s>s', string.format([[<cmd>split <bar> e term://%s <cr>]], shell)}
 nmap { '<c-s><c-s>', function()
   create_scratch()
 end}
@@ -34,7 +42,8 @@ autocmd {
     { 'TermOpen' },
     { '*' },
     function()
-        vim.wo.nu = false
-        vim.wo.rnu = false
+      vim.cmd "nnoremap <buffer> <c-w>q :bw!<cr>"
+      vim.wo.nu = false
+      vim.wo.rnu = false
     end
 }

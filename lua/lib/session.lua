@@ -2,6 +2,8 @@ local M = {}
 
 M.session_directory = vim.fn.expand("~/.nvim_sessions")
 
+local is_win = jit.os == "windows"
+
 if not file_exists(M.session_directory) then
     os.execute('mkdir ' .. M.session_directory)
 end
@@ -40,16 +42,24 @@ end
 
 function M.delete(name)
     local path = resolve_session(name)
+    local cmd = "del"
+    if not is_win then
+      cmd = "rm"
+    end
 
     if file_exists(path) then
-        os.execute('del ' .. path)
+        os.execute(cmd .. ' ' .. path)
     else
         print(string.format("Couldn't find session with name '%s'", name))
     end
 end
 
 function M.list()
-    local proc = io.popen('dir /B ' .. M.session_directory)
+    local cmd = "dir /B"
+    if not is_win then
+      cmd = "ls"
+    end
+    local proc = io.popen(cmd .. ' ' .. M.session_directory)
     local lines = {}
     for line in proc:lines() do
         table.insert(lines, line)
