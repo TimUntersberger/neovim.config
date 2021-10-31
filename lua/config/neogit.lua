@@ -5,6 +5,7 @@ local void, await, async, scheduler = a.void, a.await, a.async, a.scheduler
 
 neogit.setup {
   disable_signs = true,
+  disable_builtin_notifications = true,
   integrations = {
     diffview = true
   }

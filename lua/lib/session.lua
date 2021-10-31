@@ -9,7 +9,7 @@ if not file_exists(M.session_directory) then
 end
 
 local function resolve_session(name)
-    return vim.fn.expand(M.session_directory .. "/" .. name)
+    return vim.fn.expand(M.session_directory .. (is_win and "\\" or "/") .. name)
 end
 
 function M.save(name)
