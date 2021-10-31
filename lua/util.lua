@@ -64,7 +64,7 @@ function M.file_exists(name)
 end
 
 function M.os_seperator()
-    if jit.os == "windows" then
+    if jit.os == "Windows" then
         return "\\"
     else
         return "/"

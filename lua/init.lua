@@ -30,6 +30,7 @@ require('plugins').setup {
 
 command { "Prettier", "!prettier -w %" }
 command { "ClearLineVirtTxt", "lua vim.api.nvim_buf_set_virtual_text(0, -1, vim.api.nvim_win_get_cursor(0)[1], {}, {})" }
+nmap { "<c-w>f", ":tab split<CR>" }
 
 -- has to be before loading the configs
 vim.g.mapleader = " "

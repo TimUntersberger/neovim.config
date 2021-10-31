@@ -2,7 +2,7 @@ local M = {}
 
 M.session_directory = vim.fn.expand("~/.nvim_sessions")
 
-local is_win = jit.os == "windows"
+local is_win = jit.os == "Windows"
 
 if not file_exists(M.session_directory) then
     os.execute('mkdir ' .. M.session_directory)

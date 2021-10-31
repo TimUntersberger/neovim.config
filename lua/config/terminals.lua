@@ -33,6 +33,7 @@ end
 
 nmap { '<c-s>v', string.format([[<cmd>vsplit <bar> e term://%s <cr>]], shell)}
 nmap { '<c-s>s', string.format([[<cmd>split <bar> e term://%s <cr>]], shell)}
+nmap { '<c-s>t', string.format([[<cmd> tabnew term://%s <cr>]], shell)}
 nmap { '<c-s><c-s>', function()
   create_scratch()
 end}
