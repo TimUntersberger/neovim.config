@@ -71,6 +71,10 @@ function M.os_seperator()
     end
 end
 
+function M.join_path(x, y)
+  return string.format("%s%s%s", x, M.os_seperator(), y)
+end
+
 function M.map(t, f)
     return vim.tbl_map(f, t)
 end
@@ -83,6 +87,21 @@ function M.prelude()
             _G[key] = value
         end
     end
+  end
+
+function M.parse_command_args(args, default_config)
+  default_config = default_config or {}
+  local config = {}
+
+  for _,val in ipairs(args) do
+    local tokens = vim.split(val, "=")
+    if #tokens == 2 then
+      config[tokens[1]] = tokens[2]
+    end
+    table.insert(config, val)
+  end
+
+  return vim.tbl_extend("force", default_config, config)
 end
 
 return M
