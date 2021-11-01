@@ -19,6 +19,8 @@ vim.o.hlsearch = false
 vim.o.smartcase = true
 vim.o.hidden = true
 vim.o.mouse = 'a'
+vim.o.showtabline = 1
+vim.o.tabline = '%!luaeval("Tabline()")'
 
 vim.cmd [[set fillchars+=vert:\ ]]
 vim.cmd [[colorscheme dracula]]
