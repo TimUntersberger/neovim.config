@@ -1,42 +1,20 @@
-local lsp = require('lspconfig')
-local configs = {
-  rust_analyzer = {
-    cmd = { "rustup", "run", "nightly", "rust-analyzer" }
-  }
-}
+nmap { 'gD', vim.lsp.buf.declaration }
+nmap { '<c-=>', vim.lsp.buf.formatting }
+nmap { 'gh', vim.lsp.buf.hover }
+nmap { '<leader>ld', vim.lsp.util.show }
+nmap { 'gR', vim.lsp.buf.rename }
+nmap { ']d', vim.lsp.diagnostic.goto_next }
+nmap { '[d', vim.lsp.diagnostic.goto_prev }
 
-local servers = {
-  "tsserver",
-  "vimls",
-  "rust_analyzer",
-  "vuels",
-  "html",
-  "cssls",
-  "dockerls",
-  "jsonls"
-}
+local telescope_builtin = require 'telescope.builtin'
 
-vim.lsp.set_log_level("debug")
-
-for _, server in pairs(servers) do
-  local config = configs[server] or {}
-  lsp[server].setup(config)
-end
-
-nmap { 'gD', [[<cmd>lua vim.lsp.buf.declaration()<CR>]] }
-nmap { 'gd', [[<cmd>lua vim.lsp.buf.definition()<CR>]] }
-nmap { 'gi', [[<cmd>lua vim.lsp.buf.implementation()<CR>]] }
-nmap { 'gt', [[<cmd>lua vim.lsp.buf.type_definition()<CR>]] }
-nmap { '<c-=>', [[<cmd>lua vim.lsp.buf.formatting()<CR>]] }
-
--- LspSaga mappings
-nmap { 'gh', [[<cmd>Lspsaga hover_doc<CR>]] }
-nmap { '<leader>ld', [[<cmd>Lspsaga show_line_diagnostics<CR>]] }
-nmap { 'gR', [[<cmd>Lspsaga rename<CR>]] }
-nmap { ']d', [[<cmd>Lspsaga diagnostic_jump_next<CR>]] }
-nmap { '[d', [[<cmd>Lspsaga diagnostic_jump_prev<CR>]] }
-nmap { '<c-.>', [[<cmd>Lspsaga code_action<CR>]] }
-vmap { '<c-.>', [[<cmd><C-U>Lspsaga range_code_action<CR>]] }
+nmap { 'gt', telescope_builtin.lsp_type_definitions }
+nmap { 'gd', telescope_builtin.lsp_definitions }
+nmap { 'gi', telescope_builtin.lsp_implementations }
+nmap { '<c-.>', telescope_builtin.lsp_code_actions }
+nmap { 'gr', telescope_builtin.lsp_references }
+nmap { '<c-l>ds', telescope_builtin.lsp_document_symbols }
+nmap { '<c-l>ws', telescope_builtin.lsp_workspace_symbols }
 
 autocmd {
   { "BufEnter", "BufWinEnter", "TabEnter" },

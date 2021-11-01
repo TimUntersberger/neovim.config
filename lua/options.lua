@@ -1,4 +1,5 @@
 vim.o.ff = "unix"
+vim.o.completeopt = "menuone,noselect"
 vim.o.nu = true
 vim.o.rnu = true
 vim.o.swapfile = false

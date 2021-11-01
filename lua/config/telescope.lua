@@ -2,6 +2,7 @@ local pickers = require('telescope.pickers')
 local finders = require('telescope.finders')
 local sorters = require('telescope.sorters')
 local builtin = require('telescope.builtin')
+local state = require('telescope.actions.state')
 local previewers = require('telescope.previewers')
 local actions = require('telescope.actions')
 local make_entry = require('telescope.make_entry')
@@ -29,9 +30,6 @@ require('telescope').setup {
 
 local session = require('lib.session')
 
-nmap { 'gr', builtin.lsp_references }
-nmap { '<c-l>ds', builtin.lsp_document_symbols }
-nmap { '<c-l>ws', builtin.lsp_workspace_symbols }
 nmap { '<c-l>b', builtin.buffers }
 nmap { '<c-l>h', builtin.command_history }
 nmap { '<c-l>c', builtin.commands }
@@ -73,14 +71,14 @@ nmap {
             sorter = sorters.get_generic_fuzzy_sorter(),
             attach_mappings = function(prompt_bufnr, map)
                 local load_session = function()
-                    local selection = actions.get_selected_entry(prompt_bufnr)
+                    local selection = state.get_selected_entry(prompt_bufnr)
                     actions.close(prompt_bufnr)
                     session.close()
                     session.load(selection.value)
                 end
 
                 local delete_session = function()
-                    local selection = actions.get_selected_entry(prompt_bufnr)
+                    local selection = state.get_selected_entry(prompt_bufnr)
                     actions.close(prompt_bufnr)
                     session.delete(selection.value)
                 end

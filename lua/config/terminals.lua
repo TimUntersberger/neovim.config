@@ -29,6 +29,8 @@ local function create_scratch(height, width)
   })
 
   vim.fn.termopen({ shell })
+
+  vim.cmd "startinsert"
 end
 
 nmap { '<c-s>v', string.format([[<cmd>vsplit <bar> e term://%s <cr>]], shell)}
