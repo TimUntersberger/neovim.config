@@ -24,9 +24,15 @@ function match(subject)
                 return val
             end
         end
-        
+
         return default
     end
+end
+
+function GUI_SETUP()
+    vim.g.neovide_refresh_rate = 240
+    vim.g.neovide_cursor_animation_length = 0
+    vim.o.guifont = 'CaskaydiaCove NF:h15'
 end
 
 local SHELL = match(jit.os) {
@@ -39,8 +45,9 @@ require 'config.packer'
 require 'config.options'
 
 -- OS Register copy/paste
-MAP('n', '<c-s-v>', '"*p')
-MAP('v', '<c-s-c>', '"*y')
+MAP('i', '<c-v>', '<c-r>*')
+MAP('n', '<c-v>', '"*p')
+MAP('v', '<c-c>', '"*y')
 
 -- Easy swapping between tabpages
 MAP('n', '<c-1>', ':tabnext 1<cr>')
@@ -65,3 +72,6 @@ MAP('t', '<Esc>', '<C-\\><C-n>')
 -- Remove line numbers of the buffer, when opening a terminal 
 -- and also add a mapping for quickly closing the terminal
 AUCMD('TermOpen', '*', 'set nonu | set nornu | nnoremap <buffer> <c-w>q :bw!<cr>')
+
+-- Calls the global GUI_SETUP function after a gui client has been initialized
+AUCMD('UiEnter', '*', 'call v:lua.GUI_SETUP()')
