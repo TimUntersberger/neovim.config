@@ -69,6 +69,23 @@ MAP('n', '<c-s>t', string.format([[<cmd> tabnew term://%s <cr>]], SHELL))
 -- Easy way to go back to vim inside a terminal
 MAP('t', '<Esc>', '<C-\\><C-n>')
 
+-- Native LSP mappings
+MAP('n', 'gD', ':call v:lua.vim.lsp.buf.declaration()<cr>')
+MAP('n', 'gh', ':call v:lua.vim.lsp.buf.hover()<cr>')
+MAP('n', 'gR', ':call v:lua.vim.lsp.buf.rename()<cr>')
+MAP('n', '<c-=>', ':call v:lua.vim.lsp.buf.formatting()<cr>')
+MAP('n', '<space>ld', ':call v:lua.vim.diagnostic.open_float()<cr>')
+
+-- Telescope LSP mappings
+MAP('n', 'gi', ':Telescope lsp_implementations<cr>')
+MAP('n', 'gr', ':Telescope lsp_references<cr>')
+MAP('n', 'gd', ':Telescope lsp_definitions<cr>')
+MAP('n', '<c-.>', ':Telescope lsp_code_actions<cr>')
+
+-- Native diagnostic mappigns
+MAP('n', ']d', ':call v:lua.vim.diagnostic.goto_next()<cr>')
+MAP('n', '[d', ':call v:lua.vim.diagnostic.goto_prev()<cr>')
+
 -- Remove line numbers of the buffer, when opening a terminal 
 -- and also add a mapping for quickly closing the terminal
 AUCMD('TermOpen', '*', 'set nonu | set nornu | nnoremap <buffer> <c-w>q :bw!<cr>')

@@ -182,9 +182,10 @@ return {
             }
         end
     },
+    -- Treesitter utility
     {
         'nvim-treesitter/nvim-treesitter',
-        requires = { 
+        requires = {
             -- Automatically sets the comment string based on the context
             'JoosepAlviste/nvim-ts-context-commentstring'
         },
@@ -220,6 +221,19 @@ return {
             }
 
             config.init()
+        end
+    },
+    -- Easy way to comment/uncomment
+    {
+        'terrortylor/nvim-comment',
+        requires = {
+            -- Sets the commentstring based on the cursor position using treesitter
+            'JoosepAlviste/nvim-ts-context-commentstring'
+        },
+        config = function()
+            require'nvim_comment'.setup {
+                create_mappings = true
+            }
         end
     }
 }
