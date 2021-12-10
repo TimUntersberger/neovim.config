@@ -1,7 +1,7 @@
 nmap { 'gD', vim.lsp.buf.declaration }
 nmap { '<c-=>', vim.lsp.buf.formatting }
 nmap { 'gh', vim.lsp.buf.hover }
-nmap { '<leader>ld', vim.lsp.util.show }
+nmap { '<leader>ld', vim.lsp.diagnostic.show_line_diagnostics }
 nmap { 'gR', vim.lsp.buf.rename }
 nmap { ']d', vim.lsp.diagnostic.goto_next }
 nmap { '[d', vim.lsp.diagnostic.goto_prev }

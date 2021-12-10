@@ -8,6 +8,7 @@ require('plugins').setup {
   'tpope/vim-commentary',
   '~/Desktop/workspace/projects/neogit',
   '~/Desktop/workspace/projects/neofs',
+  '~/Desktop/workspace/projects/neospaces',
   'sindrets/diffview.nvim',
   'wbthomason/packer.nvim',
   'vhyrro/neorg',
@@ -37,9 +38,17 @@ require('plugins').setup {
   -- 'steelsojka/completion-buffers',
 }
 
+vim.g.mapleader = " "
+
 command { "Prettier", "!prettier -w %" }
-command { "ClearLineVirtTxt", "lua vim.api.nvim_buf_set_virtual_text(0, -1, vim.api.nvim_win_get_cursor(0)[1], {}, {})" }
 nmap { "<c-w>f", ":tab split<CR>" }
+
+command { "BootstrapProject", function(name)
+  local util = require 'util'
+  local workspace_path = vim.fn.expand("~/Desktop/workspace/projects")
+  local full_path = util.join_path(workspace_path, name)
+  vim.loop.fs_mkdir(full_path, 438)
+end, nargs = 1 }
 
 TEOVIM = {
   src = [[
@@ -49,7 +58,6 @@ TEOVIM = {
 }
 
 -- has to be before loading the configs
-vim.g.mapleader = " "
 
 --require('config').setup_only { "lsp", "lua", "telescope", "neofs", "neogit" }
 require('config').setup { "completion-nvim", "statusline", "netrw", "lspsaga", "compe" }
